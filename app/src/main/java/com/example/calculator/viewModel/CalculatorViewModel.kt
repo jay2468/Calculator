@@ -73,7 +73,7 @@ class CalculatorViewModel : ViewModel() {
             else -> number
         }
         if (!isOverFlow(temp)) _result.value = temp
-        if (reset) resetComputeValue()
+        if (reset) setCompute(0.0)
     }
 
     private fun isOverFlow(number: Double?): Boolean {
@@ -83,9 +83,5 @@ class CalculatorViewModel : ViewModel() {
             return true
         }
         return false
-    }
-
-    private fun resetComputeValue() {
-        _compute.value = 0.0
     }
 }
