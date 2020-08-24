@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.calculator.viewModel.CalculatorViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="26sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_expression"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="26sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_result" />
+
+        <EditText
+            android:id="@+id/etNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="@string/input"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:textAlignment="textEnd"
+            android:textSize="26sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_expression" />
+
+        <Button
+            android:id="@+id/btn_AC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="@{()->viewModel.ac(@string/ac)}"
+            android:text="AC"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_reverse"
+            app:layout_constraintTop_toBottomOf="@+id/etNumber" />
+
+        <Button
+            android:id="@+id/btn_reverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="@{()->etNumber.getText().toString().isEmpty()?viewModel.reverse(0.0):viewModel.reverse(Double.valueOf(etNumber.getText().toString().trim()))}"
+            android:text="+/-"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintLeft_toRightOf="@+id/btn_AC"
+            app:layout_constraintRight_toLeftOf="@+id/btn_factorial"
+            app:layout_constraintTop_toBottomOf="@+id/etNumber" />
+
+        <Button
+            android:id="@+id/btn_factorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="@{()->etNumber.getText().toString().isEmpty()?viewModel.factorial(0.0):viewModel.factorial(Double.valueOf(etNumber.getText().toString().trim()))}"
+            android:text="x!"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintLeft_toRightOf="@+id/btn_reverse"
+            app:layout_constraintRight_toLeftOf="@+id/btn_plus"
+            app:layout_constraintTop_toBottomOf="@+id/etNumber" />
+
+        <Button
+            android:id="@+id/btn_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="@{()->etNumber.getText().toString().isEmpty()?viewModel.basicOperations(0.0,@string/plus):viewModel.basicOperations(Double.valueOf(etNumber.getText().toString().trim()),@string/plus)}"
+            android:text="@string/plus"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintLeft_toRightOf="@+id/btn_factorial"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etNumber" />
+
+        <Button
+            android:id="@+id/btn_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="@{()->etNumber.getText().toString().isEmpty()?viewModel.basicOperations(0.0,@string/minus):viewModel.basicOperations(Double.valueOf(etNumber.getText().toString().trim()),@string/minus)}"
+            android:text="@string/minus"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/btn_multiply"
+            app:layout_constraintRight_toRightOf="@id/btn_plus"
+            app:layout_constraintTop_toBottomOf="@id/btn_plus" />
+
+        <Button
+            android:id="@+id/btn_multiply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="@{()->etNumber.getText().toString().isEmpty()?viewModel.basicOperations(0.0,@string/multiply):viewModel.basicOperations(Double.valueOf(etNumber.getText().toString().trim()),@string/multiply)}"
+            android:text="@string/multiply"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@id/btn_divide"
+            app:layout_constraintRight_toRightOf="@id/btn_minus"
+            app:layout_constraintTop_toBottomOf="@id/btn_minus" />
+
+        <Button
+            android:id="@+id/btn_divide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="@{()->etNumber.getText().toString().isEmpty()?viewModel.basicOperations(0.0,@string/divide):viewModel.basicOperations(Double.valueOf(etNumber.getText().toString().trim()),@string/divide)}"
+            android:text="@string/divide"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/btn_equal"
+            app:layout_constraintRight_toRightOf="@id/btn_multiply"
+            app:layout_constraintTop_toBottomOf="@id/btn_multiply" />
+
+        <Button
+            android:id="@+id/btn_equal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="@{()->etNumber.getText().toString().isEmpty()?viewModel.equal(0.0,@string/ac):viewModel.equal(Double.valueOf(etNumber.getText().toString().trim()),@string/ac)}"
+            android:text="="
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="@id/btn_divide"
+            app:layout_constraintTop_toBottomOf="@id/btn_divide"
+            app:layout_constraintVertical_chainStyle="spread" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
